@@ -1,0 +1,15 @@
+.product-list img{
+    width:100px;
+    height: 80px;
+
+
+}
+
+.product-details table tr td{
+    padding: 20px;
+}
+
+
+.table > :not(:first-child) {
+    border-top: 1px solid #eee;
+}

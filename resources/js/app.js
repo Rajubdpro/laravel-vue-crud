@@ -2,9 +2,11 @@ require('./bootstrap');
 
 
 import { createApp } from 'vue'
-import HelloWorld from './components/HelloWorld';
+import App from './App.vue'; 
 
-const app = createApp({});
-app.component('hello-world', HelloWorld)
+import router from "./routes/routes";
+
+
+const app = createApp(App).use(router);
+
 app.mount('#app');
-
