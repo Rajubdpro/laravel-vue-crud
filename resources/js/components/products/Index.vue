@@ -19,7 +19,7 @@
                                 v-for="(product, index) in productList"
                                 :key="index"
                             >
-                                <th scope="row">{{ index+1 }}</th>
+                                <th scope="row">{{ index + 1 }}</th>
                                 <td class="w-25">
                                     <img
                                         src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg"
@@ -42,7 +42,6 @@
                                             </button></router-link
                                         >
                                         <router-link
-                                            :productId="productId"
                                             :to="
                                                 '/admin/view-product/' +
                                                 product.id
@@ -76,9 +75,7 @@ export default {
     name: "Index",
 
     data() {
-      
         return {
-            productId: "1",
             productList: [],
         };
     },

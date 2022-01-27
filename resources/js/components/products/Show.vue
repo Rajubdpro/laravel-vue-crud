@@ -15,13 +15,25 @@
 
                         <tr>
                             <td>Category</td>
-                            <td>Test Category</td>
+                            <td>{{product.category}}</td>
                         </tr>
 
                         <tr>
-                            <td>Photo</td>
-                            <td>Photo Category</td>
+                            <td>Description</td>
+                            <td>
+                                {{product.description}}
+                            </td>
                         </tr>
+
+
+                        <tr>
+                            <td>Price</td>
+                            <td>
+                                {{product.price}}
+                            </td>
+                        </tr>
+
+
                     </table>
                 </div>
             </div>
@@ -31,31 +43,24 @@
 
 <script>
 export default {
-
-    name: 'Show',
+    name: "Show",
 
     data() {
         return {
-
-            product: {
-                name: "",
-                category: "",
-            },
+            product: {},
         };
     },
 
-
-    created() {
-        this.showProducts();
+    mounted() {
       
-      
+        this.showProducts(this.$route.params.id);
     },
 
     methods: {
-        showProducts() {
+        showProducts(id) {
             const self = this;
             axios
-                .get("http://127.0.0.1:8000/api/product-single/" + 1)
+                .get("http://127.0.0.1:8000/api/product-single/" + id)
                 .then((res) => {
                     self.product = res.data.data;
                 })
@@ -64,8 +69,5 @@ export default {
                 });
         },
     },
-
-  
-
 };
 </script>
