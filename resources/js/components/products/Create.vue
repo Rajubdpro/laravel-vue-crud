@@ -1,5 +1,11 @@
 <template>
     <div class="card">
+
+
+ <div class="alert alert-success" role="alert" v-if="success.status">
+            {{success.message}}
+        </div>
+
         <div class="card-header text-center">
             <h3>Create New Product</h3>
         </div>
@@ -14,8 +20,8 @@
                     v-model="product.name"
                     aria-describedby="nameHelp"
                 />
-                <div id="nameHelp" class="form-text text-danger">
-                    We'll never share your email with anyone else.
+                 <div class="form-text text-danger" v-if="errors && errors.name">
+                    {{errors.name[0]}}
                 </div>
             </div>
 
@@ -31,8 +37,8 @@
                     <option value="child">Child</option>
                     <option value="whiter">Winter</option>
                 </select>
-                <div id="nameHelp" class="form-text text-danger">
-                    We'll never share your email with anyone else.
+                  <div class="form-text text-danger" v-if="errors && errors.category">
+                    {{errors.category[0]}}
                 </div>
             </div>
 
@@ -46,8 +52,8 @@
                     aria-describedby="nameHelp"
                     v-model="product.description"
                 ></textarea>
-                <div id="nameHelp" class="form-text text-danger">
-                    We'll never share your email with anyone else.
+              <div class="form-text text-danger" v-if="errors && errors.description">
+                    {{errors.description[0]}}
                 </div>
             </div>
 
@@ -60,8 +66,8 @@
                     aria-describedby="nameHelp"
                     v-model="product.price"
                 />
-                <div id="nameHelp" class="form-text text-danger">
-                    We'll never share your email with anyone else.
+                <div class="form-text text-danger" v-if="errors && errors.price">
+                    {{errors.price[0]}}
                 </div>
             </div>
 
@@ -74,8 +80,8 @@
                     aria-describedby="nameHelp"
                     v-on:change="product.image"
                 />
-                <div id="nameHelp" class="form-text text-danger">
-                    We'll never share your email with anyone else.
+                <div class="form-text text-danger" v-if="errors && errors.image">
+                    {{errors.image[0]}}
                 </div>
             </div>
 
@@ -99,6 +105,8 @@ export default {
                 price: "",
                 image: "",
             },
+            success: {status:false, message: "Data Created Successfully."},
+            errors: {},
         };
     },
 
@@ -106,13 +114,17 @@ export default {
         productSubmit() {
             var self = this;
             axios
-                .post("http://127.0.0.1:8000/api/product-create", this.product)
+                .post("http://127.0.0.1:8000/api/product-create/", this.product)
                 .then((res) => {
                     console.log("data inserted successfully");
                     self.product = "";
+                    this.success.status = true;
                 })
                 .catch((err) => {
                     console.log(err);
+                     if(err.response.status = 422){
+                        this.errors = err.response.data.errors;
+                   }
                 });
         },
     },

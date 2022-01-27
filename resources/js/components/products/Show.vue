@@ -60,7 +60,7 @@ export default {
         showProducts(id) {
             const self = this;
             axios
-                .get("http://127.0.0.1:8000/api/product-single/" + id)
+                .get("http://127.0.0.1:8000/api/product-details/" + id)
                 .then((res) => {
                     self.product = res.data.data;
                 })

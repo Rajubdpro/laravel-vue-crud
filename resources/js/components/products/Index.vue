@@ -27,8 +27,8 @@
                                         alt="Sheep"
                                     />
                                 </td>
-                                <td>{{ product.id }}</td>
                                 <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
                                 <td>{{ product.price }}</td>
                                 <td>
                                     <div class="btn-group">
@@ -102,6 +102,7 @@ export default {
                 .delete("http://127.0.0.1:8000/api/product-delete/" + id)
                 .then((res) => {
                     console.log(res);
+                    this.$router.go();	
                 })
                 .catch((err) => {
                     console.log(err);

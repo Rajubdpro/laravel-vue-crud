@@ -1,7 +1,11 @@
 <template>
     <div class="card">
+        <div class="alert alert-success" role="alert" v-if="success.status">
+            {{success.message}}
+        </div>
+
         <div class="card-header text-center">
-            <h3>Create New Product</h3>
+            <h3>Update Product</h3>
         </div>
 
         <form class="card-body" @submit.prevent="productSubmit">
@@ -14,8 +18,8 @@
                     v-model="product.name"
                     aria-describedby="nameHelp"
                 />
-                <div id="nameHelp" class="form-text text-danger">
-                    We'll never share your email with anyone else.
+                <div class="form-text text-danger" v-if="errors && errors.name">
+                    {{ errors.name[0] }}
                 </div>
             </div>
 
@@ -31,8 +35,11 @@
                     <option value="child">Child</option>
                     <option value="whiter">Winter</option>
                 </select>
-                <div id="nameHelp" class="form-text text-danger">
-                    We'll never share your email with anyone else.
+                <div
+                    class="form-text text-danger"
+                    v-if="errors && errors.category"
+                >
+                    {{ errors.category[0] }}
                 </div>
             </div>
 
@@ -46,8 +53,11 @@
                     aria-describedby="nameHelp"
                     v-model="product.description"
                 ></textarea>
-                <div id="nameHelp" class="form-text text-danger">
-                    We'll never share your email with anyone else.
+                <div
+                    class="form-text text-danger"
+                    v-if="errors && errors.description"
+                >
+                    {{ errors.description[0] }}
                 </div>
             </div>
 
@@ -60,8 +70,11 @@
                     aria-describedby="nameHelp"
                     v-model="product.price"
                 />
-                <div id="nameHelp" class="form-text text-danger">
-                    We'll never share your email with anyone else.
+                <div
+                    class="form-text text-danger"
+                    v-if="errors && errors.price"
+                >
+                    {{ errors.price[0] }}
                 </div>
             </div>
 
@@ -74,12 +87,21 @@
                     aria-describedby="nameHelp"
                     v-on:change="product.image"
                 />
-                <div id="nameHelp" class="form-text text-danger">
-                    We'll never share your email with anyone else.
+                <div
+                    class="form-text text-danger"
+                    v-if="errors && errors.image"
+                >
+                    {{ errors.image[0] }}
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button
+                type="submit"
+                class="btn btn-primary"
+                @click.prevent="updateProduct(product.id)"
+            >
+                Update
+            </button>
         </form>
     </div>
 </template>
@@ -91,24 +113,44 @@ export default {
     data() {
         return {
             product: {},
+            success: { status: false, message: "Data Updated Successfully" },
+            errors: {},
         };
     },
 
     mounted() {
-      
-        this.showProducts(this.$route.params.id);
+        this.editProduct(this.$route.params.id);
     },
 
     methods: {
-        showProducts(id) {
+        editProduct(id) {
             const self = this;
             axios
-                .get("http://127.0.0.1:8000/api/product-single/" + id)
+                .get("http://127.0.0.1:8000/api/product-details/" + id)
                 .then((res) => {
                     self.product = res.data.data;
                 })
                 .catch((err) => {
                     console.log(err);
+                });
+        },
+
+        updateProduct(id) {
+            axios
+                .put(
+                    "http://127.0.0.1:8000/api/product-update/" + id,
+                    this.product
+                )
+                .then((res) => {
+                    console.log(res.data);
+                    console.log("Data Updated Successfully");
+                    this.success.status = true;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    if ((err.response.status = 422)) {
+                        this.errors = err.response.data.errors;
+                    }
                 });
         },
     },
