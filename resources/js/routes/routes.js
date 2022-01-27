@@ -18,12 +18,12 @@ const routeList = [
     },
 
     {
-        path: '/admin/edit-product',
+        path: '/admin/edit-product/:id',
         component: EditProduct,
     },
 
     {
-        path: '/admin/view-product',
+        path: '/admin/view-product/:id',
         component: viewProduct,
     },
 

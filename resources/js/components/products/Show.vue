@@ -10,7 +10,7 @@
                     <table class="table table-striped">
                         <tr>
                             <td>Name</td>
-                            <td>Test</td>
+                            <td>{{ product.name }}</td>
                         </tr>
 
                         <tr>
@@ -28,3 +28,44 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+
+    name: 'Show',
+
+    data() {
+        return {
+
+            product: {
+                name: "",
+                category: "",
+            },
+        };
+    },
+
+
+    created() {
+        this.showProducts();
+      
+      
+    },
+
+    methods: {
+        showProducts() {
+            const self = this;
+            axios
+                .get("http://127.0.0.1:8000/api/product-single/" + 1)
+                .then((res) => {
+                    self.product = res.data.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+    },
+
+  
+
+};
+</script>
