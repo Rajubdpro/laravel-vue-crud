@@ -1,9 +1,7 @@
 <template>
     <div class="card">
-
-
- <div class="alert alert-success" role="alert" v-if="success.status">
-            {{success.message}}
+        <div class="alert alert-success" role="alert" v-if="success.status">
+            {{ success.message }}
         </div>
 
         <div class="card-header text-center">
@@ -20,8 +18,8 @@
                     v-model="product.name"
                     aria-describedby="nameHelp"
                 />
-                 <div class="form-text text-danger" v-if="errors && errors.name">
-                    {{errors.name[0]}}
+                <div class="form-text text-danger" v-if="errors && errors.name">
+                    {{ errors.name[0] }}
                 </div>
             </div>
 
@@ -37,8 +35,11 @@
                     <option value="child">Child</option>
                     <option value="whiter">Winter</option>
                 </select>
-                  <div class="form-text text-danger" v-if="errors && errors.category">
-                    {{errors.category[0]}}
+                <div
+                    class="form-text text-danger"
+                    v-if="errors && errors.category"
+                >
+                    {{ errors.category[0] }}
                 </div>
             </div>
 
@@ -52,8 +53,11 @@
                     aria-describedby="nameHelp"
                     v-model="product.description"
                 ></textarea>
-              <div class="form-text text-danger" v-if="errors && errors.description">
-                    {{errors.description[0]}}
+                <div
+                    class="form-text text-danger"
+                    v-if="errors && errors.description"
+                >
+                    {{ errors.description[0] }}
                 </div>
             </div>
 
@@ -66,8 +70,11 @@
                     aria-describedby="nameHelp"
                     v-model="product.price"
                 />
-                <div class="form-text text-danger" v-if="errors && errors.price">
-                    {{errors.price[0]}}
+                <div
+                    class="form-text text-danger"
+                    v-if="errors && errors.price"
+                >
+                    {{ errors.price[0] }}
                 </div>
             </div>
 
@@ -78,10 +85,13 @@
                     class="form-control"
                     id="image"
                     aria-describedby="nameHelp"
-                    v-on:change="product.image"
+                    v-on:change="uploadImage"
                 />
-                <div class="form-text text-danger" v-if="errors && errors.image">
-                    {{errors.image[0]}}
+                <div
+                    class="form-text text-danger"
+                    v-if="errors && errors.image"
+                >
+                    {{ errors.image[0] }}
                 </div>
             </div>
 
@@ -105,26 +115,51 @@ export default {
                 price: "",
                 image: "",
             },
-            success: {status:false, message: "Data Created Successfully."},
+            success: { status: false, message: "Data Created Successfully." },
             errors: {},
         };
     },
 
+    created() {
+        console.log(this.base_url);
+    },
+
     methods: {
+        uploadImage(e) {
+            this.product.image = e.target.files[0];
+        },
+
         productSubmit() {
-            var self = this;
+
+            // Add Header to Upload Image.
+            let config = {
+                header: {
+                    "Content-Type": "multipart/form-data",
+                },
+            };
+
+            let data = new FormData();
+            data.append("name", this.product.name);
+            data.append("category", this.product.category);
+            data.append("description", this.product.description);
+            data.append("price", this.product.price);
+            data.append("image", this.product.image);
+
+            console.log(data);
+
             axios
-                .post("http://127.0.0.1:8000/api/product-create/", this.product)
+                .post(this.base_url + "/api/product-create", data, config)
                 .then((res) => {
-                    console.log("data inserted successfully");
-                    self.product = "";
+                    console.log(res.data);
+                    console.log(res.data.message);
+                    this.product = "";
                     this.success.status = true;
                 })
                 .catch((err) => {
                     console.log(err);
-                     if(err.response.status = 422){
+                    if ((err.response.status = 422)) {
                         this.errors = err.response.data.errors;
-                   }
+                    }
                 });
         },
     },

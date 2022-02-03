@@ -22,7 +22,7 @@
                                 <th scope="row">{{ index + 1 }}</th>
                                 <td class="w-25">
                                     <img
-                                        src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg"
+                                        :src="this.upload_path+ '/image/'+product.image"
                                         class="img-fluid img-thumbnail"
                                         alt="Sheep"
                                     />

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
-Use Image;
+use Image;
 
 class ProductController extends Controller
 {
@@ -18,11 +18,11 @@ class ProductController extends Controller
     {
         $products = Product::get();
 
-         return response()->json([
+        return response()->json([
             'status' => '200',
             'message' => 'Product List',
             'data' => $products
-         ]);
+        ]);
     }
 
     /**
@@ -35,8 +35,10 @@ class ProductController extends Controller
     {
 
 
+        $requestAll = $request->all();
+
         // Input Request Validaiton.
-           $request->validate([
+        $request->validate([
             'name' => 'required',
             'category' => 'required',
             'description' => 'required',
@@ -44,9 +46,19 @@ class ProductController extends Controller
         ]);
 
 
+        // Building Image Updated
+        if ($request->hasFile('image')) {
+
+            $image = $request->file('image');
+            $imageName = 'image' . '_' . time() . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->save(public_path('uploads/image/' . $imageName));
+            $requestAll['image'] = $imageName;
+        }
+
+
         // Create Data.
 
-        $data = Product::create($request->all());
+        $data = Product::create($requestAll);
 
         // Send Response.
         return response()->json([
@@ -55,7 +67,6 @@ class ProductController extends Controller
             'data' => $data
 
         ]);
-
     }
 
     /**
@@ -66,17 +77,15 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        
-           $singleProduct = Product::find($id);
 
-            return response()->json([
-                'status' => '1',
-                'message' => 'Product Details Found.',
-                'data' => $singleProduct
-    
-            ]);
+        $singleProduct = Product::find($id);
 
-       
+        return response()->json([
+            'status' => '1',
+            'message' => 'Product Details Found.',
+            'data' => $singleProduct
+
+        ]);
     }
 
     /**
@@ -88,32 +97,44 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Product::where('id', $id)->exists()){
+        if (Product::where('id', $id)->exists()) {
+
+            $requestAll = $request->all();
 
             $product = Product::find($id);
 
-              // Input Request Validaiton.
+            // Input Request Validaiton.
             $request->validate([
                 'name' => 'required',
+                'category' => 'required',
                 'description' => 'required',
                 'price' => 'required',
             ]);
 
+            // Update Building image
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = 'product' . '_' . time() . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->save(public_path('uploads/image/' . $imageName));
+                $requestAll['image'] = $imageName;
+                if ($product->image && file_exists(public_path() . '/uploads/image/' . $product->image)) {
+                    unlink(public_path() . '/uploads/image/' . $product->image);
+                }
+            }
 
-            $data = $product->fill($request->all())->save();
+            $data = $product->fill($requestAll)->save();
 
             return response()->json([
                 'status' => '1',
-                'message' => 'Product Details Found.',
+                'message' => 'Product Updated.',
                 'data' => $data
-    
-            ]);
 
-        }else{
+            ]);
+        } else {
             return response()->json([
                 'status' => '0',
                 'message' => 'Product Not Found.',
-    
+
             ], 404);
         }
     }
@@ -126,23 +147,29 @@ class ProductController extends Controller
      */
     public function delete($id)
     {
-     
-        if(Product::where('id', $id)->exists()){
 
+        if (Product::where('id', $id)->exists()) {
+
+            $find_data = Product::find($id);
             $product = Product::destroy($id);
+
+            if ($product) {
+                if ($find_data->image && file_exists(public_path() . '/uploads/image/' . $find_data->image)) {
+                    unlink(public_path() . '/uploads/image/' . $find_data->image);
+                }
+            }
 
             return response()->json([
                 'status' => '0',
                 'message' => 'Product Deleted Successfully.',
                 'data' => $product
-    
-            ], 200);
 
-        }else{
-             return response()->json([
+            ], 200);
+        } else {
+            return response()->json([
                 'status' => '0',
                 'message' => 'Product Not Found.',
-    
+
             ], 404);
         }
     }

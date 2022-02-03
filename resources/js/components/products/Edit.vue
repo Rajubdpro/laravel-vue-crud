@@ -1,14 +1,14 @@
 <template>
     <div class="card">
         <div class="alert alert-success" role="alert" v-if="success.status">
-            {{success.message}}
+            {{ success.message }}
         </div>
 
         <div class="card-header text-center">
             <h3>Update Product</h3>
         </div>
 
-        <form class="card-body" @submit.prevent="productSubmit">
+        <form class="card-body" @submit.prevent="updateProduct(product.id)">
             <div class="mb-3">
                 <label for="name" class="form-label">Product Name</label>
                 <input
@@ -85,7 +85,7 @@
                     class="form-control"
                     id="image"
                     aria-describedby="nameHelp"
-                    v-on:change="product.image"
+                    v-on:change="uploadImage"
                 />
                 <div
                     class="form-text text-danger"
@@ -93,13 +93,17 @@
                 >
                     {{ errors.image[0] }}
                 </div>
+
+                <img
+                    :src="this.upload_path + '/image/' + product.image"
+                    alt="image"
+                    width="200"
+                />
             </div>
 
             <button
                 type="submit"
-                class="btn btn-primary"
-                @click.prevent="updateProduct(product.id)"
-            >
+                class="btn btn-primary">
                 Update
             </button>
         </form>
@@ -135,15 +139,35 @@ export default {
                 });
         },
 
+        uploadImage(e) {
+            this.product.image = e.target.files[0];
+        },
+
         updateProduct(id) {
+            // Add Header to Upload Image.
+            let config = {
+                header: {
+                    "Content-Type": "multipart/form-data",
+                },
+            };
+
+            let data1 = new FormData();
+            data1.append("name", this.product.name);
+            data1.append("category", this.product.category);
+            data1.append("description", this.product.description);
+            data1.append("price", this.product.price);
+            data1.append("image", this.product.image);
+
+            console.log(data1);
+
             axios
                 .put(
                     "http://127.0.0.1:8000/api/product-update/" + id,
-                    this.product
+                    this.product,
+                    config
                 )
                 .then((res) => {
                     console.log(res.data);
-                    console.log("Data Updated Successfully");
                     this.success.status = true;
                 })
                 .catch((err) => {

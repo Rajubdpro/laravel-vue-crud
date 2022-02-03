@@ -22668,14 +22668,33 @@ __webpack_require__.r(__webpack_exports__);
       errors: {}
     };
   },
+  created: function created() {
+    console.log(this.base_url);
+  },
   methods: {
+    uploadImage: function uploadImage(e) {
+      this.product.image = e.target.files[0];
+    },
     productSubmit: function productSubmit() {
       var _this = this;
 
-      var self = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post("http://127.0.0.1:8000/api/product-create/", this.product).then(function (res) {
-        console.log("data inserted successfully");
-        self.product = "";
+      // Add Header to Upload Image.
+      var config = {
+        header: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      var data = new FormData();
+      data.append("name", this.product.name);
+      data.append("category", this.product.category);
+      data.append("description", this.product.description);
+      data.append("price", this.product.price);
+      data.append("image", this.product.image);
+      console.log(data);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(this.base_url + "/api/product-create", data, config).then(function (res) {
+        console.log(res.data);
+        console.log(res.data.message);
+        _this.product = "";
         _this.success.status = true;
       })["catch"](function (err) {
         console.log(err);
@@ -22725,12 +22744,27 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
+    uploadImage: function uploadImage(e) {
+      this.product.image = e.target.files[0];
+    },
     updateProduct: function updateProduct(id) {
       var _this = this;
 
-      axios.put("http://127.0.0.1:8000/api/product-update/" + id, this.product).then(function (res) {
+      // Add Header to Upload Image.
+      var config = {
+        header: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      var data1 = new FormData();
+      data1.append("name", this.product.name);
+      data1.append("category", this.product.category);
+      data1.append("description", this.product.description);
+      data1.append("price", this.product.price);
+      data1.append("image", this.product.image);
+      console.log(data1);
+      axios.put("http://127.0.0.1:8000/api/product-update/" + id, this.product, config).then(function (res) {
         console.log(res.data);
-        console.log("Data Updated Successfully");
         _this.success.status = true;
       })["catch"](function (err) {
         console.log(err);
@@ -22930,7 +22964,7 @@ function render(_ctx, _cache) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     "class": "navbar-brand",
-    to: "/admin/"
+    to: "/admin"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_4];
@@ -23159,9 +23193,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "image",
     "aria-describedby": "nameHelp",
     onChange: _cache[4] || (_cache[4] = function () {
-      var _$data$product;
-
-      return $data.product.image && (_$data$product = $data.product).image.apply(_$data$product, arguments);
+      return $options.uploadImage && $options.uploadImage.apply($options, arguments);
     })
   }, null, 32
   /* HYDRATE_EVENTS */
@@ -23302,13 +23334,22 @@ var _hoisted_23 = {
   key: 0,
   "class": "form-text text-danger"
 };
+var _hoisted_24 = ["src"];
+
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  type: "submit",
+  "class": "btn btn-primary"
+}, " Update ", -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [$data.success.status ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.success.message), 1
   /* TEXT */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     "class": "card-body",
-    onSubmit: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return _ctx.productSubmit && _ctx.productSubmit.apply(_ctx, arguments);
+    onSubmit: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+      return $options.updateProduct($data.product.id);
     }, ["prevent"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
@@ -23361,21 +23402,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "image",
     "aria-describedby": "nameHelp",
     onChange: _cache[4] || (_cache[4] = function () {
-      var _$data$product;
-
-      return $data.product.image && (_$data$product = $data.product).image.apply(_$data$product, arguments);
+      return $options.uploadImage && $options.uploadImage.apply($options, arguments);
     })
   }, null, 32
   /* HYDRATE_EVENTS */
   ), $data.errors && $data.errors.image ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.errors.image[0]), 1
   /* TEXT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    type: "submit",
-    "class": "btn btn-primary",
-    onClick: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
-      return $options.updateProduct($data.product.id);
-    }, ["prevent"]))
-  }, " Update ")], 32
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: this.upload_path + '/image/' + $data.product.image,
+    alt: "image",
+    width: "200"
+  }, null, 8
+  /* PROPS */
+  , _hoisted_24)]), _hoisted_25], 32
   /* HYDRATE_EVENTS */
   )]);
 }
@@ -23430,35 +23469,30 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_7 = {
   scope: "row"
 };
-
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+var _hoisted_8 = {
   "class": "w-25"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg",
-  "class": "img-fluid img-thumbnail",
-  alt: "Sheep"
-})], -1
-/* HOISTED */
-);
-
-var _hoisted_9 = {
+};
+var _hoisted_9 = ["src"];
+var _hoisted_10 = {
   "class": "btn-group"
 };
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "btn btn-primary"
 }, " Edit ", -1
 /* HOISTED */
 );
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "btn btn-info"
 }, " View ", -1
 /* HOISTED */
 );
 
-var _hoisted_12 = ["onClick"];
+var _hoisted_13 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _this = this;
+
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.productList, function (product, index) {
@@ -23466,17 +23500,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: index
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index + 1), 1
     /* TEXT */
-    ), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.name), 1
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+      src: _this.upload_path + '/image/' + product.image,
+      "class": "img-fluid img-thumbnail",
+      alt: "Sheep"
+    }, null, 8
+    /* PROPS */
+    , _hoisted_9)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.name), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.category), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.price), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
       to: '/admin/edit-product/' + product.id
     }, {
       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-        return [_hoisted_10];
+        return [_hoisted_11];
       }),
       _: 2
       /* DYNAMIC */
@@ -23487,7 +23527,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       to: '/admin/view-product/' + product.id
     }, {
       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-        return [_hoisted_11];
+        return [_hoisted_12];
       }),
       _: 2
       /* DYNAMIC */
@@ -23501,7 +23541,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, ["prevent"])
     }, " Delete ", 8
     /* PROPS */
-    , _hoisted_12)])])]);
+    , _hoisted_13)])])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])])])])])]);
@@ -23591,7 +23631,16 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+var myMixin = {
+  data: function data() {
+    return {
+      base_url: 'http://127.0.0.1:8000',
+      upload_path: 'http://127.0.0.1:8000/uploads/'
+    };
+  }
+};
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]).use(_routes_routes__WEBPACK_IMPORTED_MODULE_2__["default"]);
+app.mixin(myMixin);
 app.mount('#app');
 
 /***/ }),
