@@ -130,7 +130,6 @@ export default {
         },
 
         productSubmit() {
-
             // Add Header to Upload Image.
             let config = {
                 header: {

@@ -15,25 +15,22 @@
 
                         <tr>
                             <td>Category</td>
-                            <td>{{product.category}}</td>
+                            <td>{{ product.category }}</td>
                         </tr>
 
                         <tr>
                             <td>Description</td>
                             <td>
-                                {{product.description}}
+                                {{ product.description }}
                             </td>
                         </tr>
-
 
                         <tr>
                             <td>Price</td>
                             <td>
-                                {{product.price}}
+                                {{ product.price }}
                             </td>
                         </tr>
-
-
                     </table>
                 </div>
             </div>
@@ -52,7 +49,6 @@ export default {
     },
 
     mounted() {
-      
         this.showProducts(this.$route.params.id);
     },
 
@@ -60,7 +56,7 @@ export default {
         showProducts(id) {
             const self = this;
             axios
-                .get("http://127.0.0.1:8000/api/product-details/" + id)
+                .get(this.base_url + "/api/product-details/" + id)
                 .then((res) => {
                     self.product = res.data.data;
                 })

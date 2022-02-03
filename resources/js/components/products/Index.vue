@@ -22,7 +22,11 @@
                                 <th scope="row">{{ index + 1 }}</th>
                                 <td class="w-25">
                                     <img
-                                        :src="this.upload_path+ '/image/'+product.image"
+                                        :src="
+                                            this.upload_path +
+                                            '/image/' +
+                                            product.image
+                                        "
                                         class="img-fluid img-thumbnail"
                                         alt="Sheep"
                                     />
@@ -88,7 +92,7 @@ export default {
         getProductList() {
             const vm = this;
             axios
-                .get("http://127.0.0.1:8000/api/product-list")
+                .get(this.base_url + "/api/product-list")
                 .then((res) => {
                     vm.productList = res.data.data;
                 })
@@ -99,10 +103,10 @@ export default {
 
         deleteProduct(id) {
             axios
-                .delete("http://127.0.0.1:8000/api/product-delete/" + id)
+                .delete(this.base_url + "/api/product-delete/" + id)
                 .then((res) => {
                     console.log(res);
-                    this.$router.go();	
+                    this.$router.go();
                 })
                 .catch((err) => {
                     console.log(err);

@@ -96,7 +96,12 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+
     {
+
+
+
+
         if (Product::where('id', $id)->exists()) {
 
             $requestAll = $request->all();

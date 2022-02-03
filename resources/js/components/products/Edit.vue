@@ -101,11 +101,7 @@
                 />
             </div>
 
-            <button
-                type="submit"
-                class="btn btn-primary">
-                Update
-            </button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 </template>
@@ -130,7 +126,7 @@ export default {
         editProduct(id) {
             const self = this;
             axios
-                .get("http://127.0.0.1:8000/api/product-details/" + id)
+                .get(this.base_url + "/api/product-details/" + id)
                 .then((res) => {
                     self.product = res.data.data;
                 })
@@ -151,21 +147,16 @@ export default {
                 },
             };
 
-            let data1 = new FormData();
-            data1.append("name", this.product.name);
-            data1.append("category", this.product.category);
-            data1.append("description", this.product.description);
-            data1.append("price", this.product.price);
-            data1.append("image", this.product.image);
-
-            console.log(data1);
+            let data = new FormData();
+            data.append("name", this.product.name);
+            data.append("category", this.product.category);
+            data.append("description", this.product.description);
+            data.append("price", this.product.price);
+            data.append("image", this.product.image);
+            data.append("_method", "put");
 
             axios
-                .put(
-                    "http://127.0.0.1:8000/api/product-update/" + id,
-                    this.product,
-                    config
-                )
+                .post(this.base_url + "/api/product-update/" + id, data, config)
                 .then((res) => {
                     console.log(res.data);
                     this.success.status = true;

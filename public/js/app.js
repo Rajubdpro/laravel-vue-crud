@@ -22738,7 +22738,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     editProduct: function editProduct(id) {
       var self = this;
-      axios.get("http://127.0.0.1:8000/api/product-details/" + id).then(function (res) {
+      axios.get(this.base_url + "/api/product-details/" + id).then(function (res) {
         self.product = res.data.data;
       })["catch"](function (err) {
         console.log(err);
@@ -22756,14 +22756,14 @@ __webpack_require__.r(__webpack_exports__);
           "Content-Type": "multipart/form-data"
         }
       };
-      var data1 = new FormData();
-      data1.append("name", this.product.name);
-      data1.append("category", this.product.category);
-      data1.append("description", this.product.description);
-      data1.append("price", this.product.price);
-      data1.append("image", this.product.image);
-      console.log(data1);
-      axios.put("http://127.0.0.1:8000/api/product-update/" + id, this.product, config).then(function (res) {
+      var data = new FormData();
+      data.append("name", this.product.name);
+      data.append("category", this.product.category);
+      data.append("description", this.product.description);
+      data.append("price", this.product.price);
+      data.append("image", this.product.image);
+      data.append("_method", "put");
+      axios.post(this.base_url + "/api/product-update/" + id, data, config).then(function (res) {
         console.log(res.data);
         _this.success.status = true;
       })["catch"](function (err) {
@@ -22806,7 +22806,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getProductList: function getProductList() {
       var vm = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://127.0.0.1:8000/api/product-list").then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(this.base_url + "/api/product-list").then(function (res) {
         vm.productList = res.data.data;
       })["catch"](function (err) {
         console.log(err);
@@ -22815,7 +22815,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteProduct: function deleteProduct(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("http://127.0.0.1:8000/api/product-delete/" + id).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](this.base_url + "/api/product-delete/" + id).then(function (res) {
         console.log(res);
 
         _this.$router.go();
@@ -22852,7 +22852,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     showProducts: function showProducts(id) {
       var self = this;
-      axios.get("http://127.0.0.1:8000/api/product-details/" + id).then(function (res) {
+      axios.get(this.base_url + "/api/product-details/" + id).then(function (res) {
         self.product = res.data.data;
       })["catch"](function (err) {
         console.log(err);
@@ -23339,7 +23339,7 @@ var _hoisted_24 = ["src"];
 var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
   "class": "btn btn-primary"
-}, " Update ", -1
+}, "Update", -1
 /* HOISTED */
 );
 
