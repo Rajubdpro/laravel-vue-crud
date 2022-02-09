@@ -1,11 +1,5 @@
 <p align="center"><a href="https://codepopular.com/" target="_blank"><img src="logo-with-icon.png" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
 ## About Project
 
@@ -32,6 +26,12 @@ You can learn basic stuff of VUE js in Laravel Framework.
     php artisan migrate:fresh --seed
     ```
 
+- Then you will see a URL port in terminal after run artisan serve. then visit the URL to see previous of the Project.
+- Register New account 
+- Then Login to view recored.
+
+## Run Vue JS
+
 - Run
    ```sh
     npm install
@@ -47,8 +47,10 @@ You can learn basic stuff of VUE js in Laravel Framework.
     npm run watch
     ```
 
-- Register New account 
-- Then Login to view recored.
+- Run
+   ```sh
+    php artisan serve
+    ```
 
 
 ### Connect With Me
