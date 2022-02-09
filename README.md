@@ -25,6 +25,11 @@ You can learn basic stuff of VUE js in Laravel Framework.
    ```sh
     php artisan migrate:fresh --seed
     ```
+- Run
+   ```sh
+    php artisan serve
+    ```
+
 
 - Then you will see a URL port in terminal after run artisan serve. then visit the URL to see previous of the Project.
 - Register New account 
@@ -45,11 +50,6 @@ You can learn basic stuff of VUE js in Laravel Framework.
 - Run
    ```sh
     npm run watch
-    ```
-
-- Run
-   ```sh
-    php artisan serve
     ```
 
 
