@@ -57,7 +57,7 @@ You can learn basic stuff of VUE js in Laravel Framework.
 - **[Twitter](https://twitter.com/codepopular)**
 - **[Linkedin](https://www.linkedin.com/in/codepopular/)**
 - **[Whatsapp](https://api.whatsapp.com/send?phone=8801794939992)**
-- **[Whatsapp](https://api.whatsapp.com/send?phone=8801794939992)**
+- **[Youtube](https://www.youtube.com/codepopular?sub_confirmation=1)**
 
 
 <a href="https://ko-fi.com/codepopular" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
