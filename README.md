@@ -22,36 +22,43 @@ You can learn basic stuff of VUE js in Laravel Framework.
 - Create Database.
 - Connect Database from .ENV file from root directory.
 - Open Terminal and Run 
+- Run
+   ```sh
+    composer update
+    ```
 
-- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Run
+   ```sh
+    php artisan migrate:fresh --seed
+    ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Run
+   ```sh
+    npm install
+    ```
 
-## Learning Laravel
+- Run
+   ```sh
+    npm run dev
+    ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Run
+   ```sh
+    npm run watch
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Register New account 
+- Then Login to view recored.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Connect With Me
 
-### Premium Partners
+- **[Facebook](https://facebook.com/codepopularOfficial/)**
+- **[Twitter](https://twitter.com/codepopular)**
+- **[Linkedin](https://www.linkedin.com/in/codepopular/)**
+- **[Whatsapp](https://api.whatsapp.com/send?phone=8801794939992)**
+- **[Whatsapp](https://api.whatsapp.com/send?phone=8801794939992)**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+
+<a href="https://ko-fi.com/codepopular" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
