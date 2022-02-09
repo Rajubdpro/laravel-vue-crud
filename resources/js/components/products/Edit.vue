@@ -93,12 +93,14 @@
                 >
                     {{ errors.image[0] }}
                 </div>
-
-                <img
+                
+                <img v-if="product.image !== null"
                     :src="this.upload_path + '/image/' + product.image"
                     alt="image"
                     width="200"
                 />
+
+           
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>

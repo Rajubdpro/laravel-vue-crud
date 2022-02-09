@@ -20,12 +20,25 @@
                                 :key="index"
                             >
                                 <th scope="row">{{ index + 1 }}</th>
-                                <td class="w-25">
+
+                                <td class="w-25" v-if="product.image != null">
                                     <img
                                         :src="
                                             this.upload_path +
                                             '/image/' +
                                             product.image
+                                        "
+                                        class="img-fluid img-thumbnail"
+                                        alt="Sheep"
+                                    />
+                                </td>
+
+                                <td class="w-25" v-else>
+                                    <img
+                                        :src="
+                                            this.upload_path +
+                                            '/image/' +
+                                            'no-image.png'
                                         "
                                         class="img-fluid img-thumbnail"
                                         alt="Sheep"
