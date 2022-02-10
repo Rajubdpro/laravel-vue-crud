@@ -22818,7 +22818,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](this.base_url + "/api/product-delete/" + id).then(function (res) {
         console.log(res);
 
-        _this.$router.go();
+        _this.getProductList();
       })["catch"](function (err) {
         console.log(err);
       });

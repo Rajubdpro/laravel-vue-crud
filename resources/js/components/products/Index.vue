@@ -119,7 +119,7 @@ export default {
                 .delete(this.base_url + "/api/product-delete/" + id)
                 .then((res) => {
                     console.log(res);
-                    this.$router.go();
+                    this.getProductList();
                 })
                 .catch((err) => {
                     console.log(err);
